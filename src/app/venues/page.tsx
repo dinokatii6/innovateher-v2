@@ -1,4 +1,5 @@
 'use client'
+import { inputBase } from '@/lib/ui-classes'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -42,9 +43,6 @@ function StarRating({ value }: { value: number }) {
     </span>
   )
 }
-
-const inputBase =
-  'w-full rounded-xl border border-border bg-white/80 px-4 py-2.5 text-slate-700 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition'
 
 export default function ArtMapPage() {
   const [venues, setVenues] = useState<Venue[]>([])

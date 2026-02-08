@@ -1,6 +1,7 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { inputBase, btnPrimary } from '@/lib/ui-classes'
 import { useRole } from '@/context/role'
+import { useEffect, useState } from 'react'
 
 interface ArtPost {
   _id: string
@@ -102,9 +103,6 @@ export default function GalleryPage() {
     setSubmitting(false)
   }
 
-  const inputBase = 'w-full rounded-xl border border-border bg-white/80 px-3 py-2 text-slate-700 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition'
-  const btnPrimary = 'rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
-
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -119,7 +117,6 @@ export default function GalleryPage() {
         )}
       </div>
 
-      {/* Post Form */}
       {showForm && isArtist && (
         <form onSubmit={submit} className="glass-card space-y-4 rounded-2xl p-6">
           <h2 className="text-lg font-bold text-gray-900">Post Your Art</h2>
@@ -272,7 +269,6 @@ export default function GalleryPage() {
 
                 <p className="mt-2 line-clamp-2 text-sm text-gray-600">{post.description}</p>
 
-                {/* Story toggle */}
                 {post.story && (
                   <div className="mt-3">
                     <button onClick={() => setExpanded(expanded === post._id ? null : post._id)}

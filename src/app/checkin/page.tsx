@@ -1,4 +1,5 @@
 'use client'
+import { inputBase } from '@/lib/ui-classes'
 import { useEffect, useState, useCallback } from 'react'
 
 interface Session {
@@ -21,9 +22,6 @@ function formatTime(ms: number) {
   const sec = s % 60
   return [h, m, sec].map((v) => String(v).padStart(2, '0')).join(':')
 }
-
-const inputBase =
-  'w-full rounded-xl border border-border bg-white/80 px-3 py-2 text-slate-700 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition'
 
 export default function CheckInPage() {
   const [session, setSession] = useState<Session | null>(null)

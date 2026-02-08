@@ -1,15 +1,10 @@
-
 # dependencies
 node_modules/
-frontend/node_modules/
-backend/.venv/
 .venv/
 
 # next build
 .next/
-frontend/.next/
 out/
-frontend/out/
 
 # logs
 npm-debug.log*
@@ -20,8 +15,6 @@ yarn-error.log*
 .env
 .env.local
 .env*.local
-frontend/.env*
-backend/.env*
 
 # OS / editor
 .DS_Store
@@ -29,3 +22,7 @@ Thumbs.db
 .vscode/
 .idea/
 nul
+
+# TypeScript build cache
+tsconfig.tsbuildinfo
+*.tsbuildinfo

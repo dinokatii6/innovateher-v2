@@ -1,4 +1,5 @@
 'use client'
+import { inputBase, btnPrimary, btnDanger } from '@/lib/ui-classes'
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
@@ -13,13 +14,6 @@ interface Rating {
 interface Incident {
   _id: string; type: string; severity: string; description: string; dateOfIncident: string; createdAt: string
 }
-
-const inputBase =
-  'w-full rounded-xl border border-border bg-white/80 px-3 py-2 text-slate-700 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition'
-const btnPrimary =
-  'rounded-xl bg-primary px-6 py-2 font-semibold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50'
-const btnDanger =
-  'rounded-xl bg-danger px-6 py-2 font-semibold text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-danger focus:ring-offset-2 disabled:opacity-50'
 
 function Bar({ label, value }: { label: string; value: number }) {
   const pct = (value / 5) * 100

@@ -147,7 +147,6 @@ export default function WhispersPage() {
         </button>
       </div>
 
-      {/* AI Insights Panel */}
       {showInsights && (
         <div className="rounded-2xl border border-accent/30 bg-gradient-to-br from-accent-light to-white p-5">
           {insightsLoading ? (
