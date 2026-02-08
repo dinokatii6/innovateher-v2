@@ -19,11 +19,11 @@ const categoryLabels: Record<string, string> = {
   general: 'General',
 }
 const categoryColors: Record<string, string> = {
-  journey: 'bg-purple-100 text-purple-700',
-  inspiration: 'bg-yellow-100 text-yellow-700',
-  challenge: 'bg-red-100 text-red-700',
-  advice: 'bg-blue-100 text-blue-700',
-  general: 'bg-gray-100 text-gray-700',
+  journey: 'bg-accent-light text-primary',
+  inspiration: 'bg-warning-bg text-warning',
+  challenge: 'bg-danger-bg text-danger',
+  advice: 'bg-info-bg text-info',
+  general: 'bg-surface text-slate-600',
 }
 
 export default function StoriesPage() {
@@ -69,30 +69,30 @@ export default function StoriesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Art Stories</h1>
-          <p className="text-gray-600">Anonymous stories from the creative community. Share your journey, inspire others.</p>
+          <h1 className="text-3xl font-bold text-gray-900">Art Stories</h1>
+          <p className="mt-1 text-slate-600">Anonymous stories from the creative community. Share your journey, inspire others.</p>
         </div>
         <button onClick={() => setShowForm(!showForm)}
-          className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark">
+          className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
           {showForm ? 'Cancel' : '+ Share Story'}
         </button>
       </div>
 
       {showForm && (
-        <form onSubmit={submit} className="space-y-4 rounded-xl border border-gray-200 p-6">
+        <form onSubmit={submit} className="glass-card space-y-4 rounded-xl p-6">
           <p className="text-sm text-gray-500">Share your art story anonymously. Your identity stays hidden.</p>
           <div>
             <label className="block text-sm font-medium text-gray-700">Title</label>
             <input type="text" required maxLength={200} value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
               placeholder="e.g. How I Found My Style Through Pottery"
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+              className="mt-1 w-full rounded-xl border border-border bg-white/80 px-3 py-2 text-slate-700 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition" />
           </div>
           <div className="flex items-center gap-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700">Category</label>
               <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
-                className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm focus:border-primary focus:outline-none">
+                className="mt-1 w-full rounded-xl border border-border bg-white/80 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition">
                 {categories.filter((c) => c !== 'all').map((c) => (
                   <option key={c} value={c}>{categoryLabels[c]}</option>
                 ))}
@@ -104,11 +104,11 @@ export default function StoriesPage() {
             <textarea required minLength={10} maxLength={3000} rows={6} value={form.body}
               onChange={(e) => setForm({ ...form, body: e.target.value })}
               placeholder="Tell your story... What inspired you? What challenges did you face? What advice would you give?"
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+              className="mt-1 w-full rounded-xl border border-border bg-white/80 px-3 py-2 text-slate-700 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition" />
             <p className="mt-1 text-xs text-gray-400">{3000 - form.body.length} characters remaining</p>
           </div>
           <button type="submit" disabled={submitting || !form.title.trim() || !form.body.trim()}
-            className="rounded-lg bg-primary px-6 py-2 font-semibold text-white transition hover:bg-primary-dark disabled:opacity-50">
+            className="rounded-xl bg-primary px-6 py-2 font-semibold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50">
             {submitting ? 'Posting...' : 'Share Anonymously'}
           </button>
         </form>
@@ -117,7 +117,7 @@ export default function StoriesPage() {
       <div className="flex flex-wrap gap-2">
         {categories.map((c) => (
           <button key={c} onClick={() => setFilter(c)}
-            className={`rounded-full px-3 py-1 text-sm font-medium transition ${filter === c ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+            className={`rounded-full px-3 py-1 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${filter === c ? 'bg-primary text-white' : 'bg-surface text-slate-600 hover:bg-border/50'}`}>
             {c === 'all' ? 'All' : categoryLabels[c]}
           </button>
         ))}
@@ -126,13 +126,13 @@ export default function StoriesPage() {
       {loading ? (
         <p className="text-gray-500">Loading stories...</p>
       ) : stories.length === 0 ? (
-        <div className="rounded-lg border border-gray-200 p-8 text-center">
-          <p className="text-gray-500">No stories shared yet. Be the first to share your journey!</p>
+        <div className="glass-card rounded-2xl p-8 text-center">
+          <p className="text-slate-500">No stories shared yet. Be the first to share your journey!</p>
         </div>
       ) : (
         <div className="space-y-4">
           {stories.map((story) => (
-            <div key={story._id} className="rounded-xl border border-gray-200 p-6 transition hover:shadow-md">
+            <div key={story._id} className="glass-card rounded-xl p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <h2 className="text-lg font-bold text-gray-900">{story.title}</h2>
@@ -144,7 +144,7 @@ export default function StoriesPage() {
                   </div>
                 </div>
                 <button onClick={() => upvote(story._id)}
-                  className="flex shrink-0 items-center gap-1 rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-500 transition hover:border-primary hover:text-primary">
+                  className="flex shrink-0 items-center gap-1 rounded-full border border-border px-3 py-1 text-sm text-slate-500 transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
                   ▲ {story.upvotes}
                 </button>
               </div>

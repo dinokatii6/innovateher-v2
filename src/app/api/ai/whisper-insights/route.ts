@@ -27,7 +27,7 @@ export async function GET() {
     .map((t, i) => `${i + 1}. [${(t as Record<string, unknown>).category}] ${(t as Record<string, unknown>).body}`)
     .join('\n')
 
-  const prompt = `You are an AI analyst for an anonymous art community platform called Backstage Beacon. The platform helps women artists share tips ("whispers") about pricing, safety, techniques, supplies, and general advice.
+  const prompt = `You are an AI analyst for an art marketplace and community for women artists called HerFrame. The platform helps women artists share tips ("whispers") about pricing, safety, techniques, supplies, and general advice.
 
 Analyze these community whispers and provide insights:
 

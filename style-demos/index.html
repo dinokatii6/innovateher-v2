@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art Marketplace — Soft Pastel Styles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #f5f0f8; color: #3d3850; min-height: 100vh; padding: 3rem 2rem; }
+  h1 { font-size: 2.4rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .subtitle { color: #6b6580; font-size: 1.05rem; margin-bottom: 3rem; max-width: 560px; line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1100px; }
+  .card {
+    border-radius: 16px;
+    padding: 2rem;
+    background: #fff;
+    text-decoration: none;
+    color: #3d3850;
+    transition: box-shadow 0.25s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    box-shadow: 0 8px 32px rgba(74,68,85,0.08);
+    border: 1px solid rgba(154,123,168,0.12);
+  }
+  .card:hover { box-shadow: 0 16px 48px rgba(154,123,168,0.18); transform: translateY(-3px); }
+  .card .number { font-size: 0.8rem; color: #9b7ba8; font-weight: 600; letter-spacing: 0.1em; }
+  .card h2 { font-size: 1.2rem; font-weight: 600; }
+  .card p { font-size: 0.88rem; color: #6b6580; line-height: 1.55; }
+  .card .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: auto; padding-top: 0.75rem; }
+  .card .tag { font-size: 0.72rem; padding: 0.25rem 0.6rem; border-radius: 99px; background: #f0ecf5; color: #7a7290; }
+</style>
+</head>
+<body>
+  <h1>Soft Pastel Styles</h1>
+  <p class="subtitle">5 variations for your art marketplace. Click any card to see the full page. One is a bit more colorful.</p>
+  <div class="grid">
+    <a href="01-editorial.html" class="card">
+      <span class="number">01</span>
+      <h2>Classic</h2>
+      <p>Blush, lavender, and sage. The original soft pastel — dreamy and gentle.</p>
+      <div class="tags"><span class="tag">blush</span><span class="tag">lavender</span><span class="tag">sage</span></div>
+    </a>
+    <a href="02-warm-minimalism.html" class="card">
+      <span class="number">02</span>
+      <h2>Lavender Focus</h2>
+      <p>More purple and lilac. Soft, romantic, and very calm.</p>
+      <div class="tags"><span class="tag">lavender</span><span class="tag">lilac</span><span class="tag">soft</span></div>
+    </a>
+    <a href="03-brutalist.html" class="card">
+      <span class="number">03</span>
+      <h2>Peach & Mint</h2>
+      <p>Warm peach with cool mint. Sweet and fresh at once.</p>
+      <div class="tags"><span class="tag">peach</span><span class="tag">mint</span><span class="tag">warm</span></div>
+    </a>
+    <a href="04-scandinavian.html" class="card">
+      <span class="number">04</span>
+      <h2>Sky</h2>
+      <p>Powder blue and mist. Light, airy, and serene.</p>
+      <div class="tags"><span class="tag">blue</span><span class="tag">sky</span><span class="tag">airy</span></div>
+    </a>
+    <a href="05-retro.html" class="card">
+      <span class="number">05</span>
+      <h2>Colorful</h2>
+      <p>Richer pastels — coral, butter, mint, lavender. Same soft feel, more color.</p>
+      <div class="tags"><span class="tag">colorful</span><span class="tag">vibrant</span><span class="tag">pastel</span></div>
+    </a>
+  </div>
+</body>
+</html>

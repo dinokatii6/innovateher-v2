@@ -21,15 +21,15 @@ const mediumLabels: Record<string, string> = {
   graffiti: 'Graffiti', photography: 'Photography', textile: 'Textile', mixed_media: 'Mixed Media', other: 'Other',
 }
 const mediumColors: Record<string, string> = {
-  digital: 'bg-violet-100 text-violet-700', painting: 'bg-blue-100 text-blue-700',
-  pottery: 'bg-amber-100 text-amber-700', sculpture: 'bg-teal-100 text-teal-700',
+  digital: 'bg-violet-100 text-violet-700', painting: 'bg-info-bg text-info',
+  pottery: 'bg-amber-100 text-amber-700', sculpture: 'bg-info-bg text-info',
   graffiti: 'bg-pink-100 text-pink-700', photography: 'bg-slate-100 text-slate-700',
-  textile: 'bg-rose-100 text-rose-700', mixed_media: 'bg-indigo-100 text-indigo-700',
+  textile: 'bg-rose-100 text-rose-700', mixed_media: 'bg-info-bg text-info',
   other: 'bg-gray-100 text-gray-700',
 }
 const placeholderColors = [
-  'from-violet-200 to-pink-200', 'from-blue-200 to-teal-200', 'from-amber-200 to-orange-200',
-  'from-emerald-200 to-cyan-200', 'from-rose-200 to-purple-200', 'from-indigo-200 to-blue-200',
+  'from-violet-200 to-pink-200', 'from-purple-200 to-violet-200', 'from-amber-200 to-orange-200',
+  'from-purple-200 to-pink-200', 'from-orange-200 to-amber-200', 'from-violet-200 to-purple-200',
 ]
 
 export default function GalleryPage() {
@@ -102,17 +102,18 @@ export default function GalleryPage() {
     setSubmitting(false)
   }
 
+  const inputBase = 'w-full rounded-xl border border-border bg-white/80 px-3 py-2 text-slate-700 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition'
+  const btnPrimary = 'rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
+
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Gallery</h1>
-          <p className="text-gray-600">Discover art from the community. Every piece tells a story.</p>
+          <h1 className="text-3xl font-bold text-gray-900">Gallery</h1>
+          <p className="mt-1 text-slate-600">Discover art from the community. Every piece tells a story.</p>
         </div>
         {isArtist && (
-          <button onClick={() => setShowForm(!showForm)}
-            className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">
+          <button onClick={() => setShowForm(!showForm)} className={btnPrimary}>
             {showForm ? 'Cancel' : '+ Post Art'}
           </button>
         )}
@@ -120,27 +121,27 @@ export default function GalleryPage() {
 
       {/* Post Form */}
       {showForm && isArtist && (
-        <form onSubmit={submit} className="space-y-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-bold">Post Your Art</h2>
+        <form onSubmit={submit} className="glass-card space-y-4 rounded-2xl p-6">
+          <h2 className="text-lg font-bold text-gray-900">Post Your Art</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700">Title of Work *</label>
               <input type="text" required maxLength={200} value={form.title}
                 onChange={(e) => setForm({ ...form, title: e.target.value })}
                 placeholder="e.g. Sunset Over Clay"
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+                className={`mt-1 ${inputBase}`} />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">Artist Name *</label>
               <input type="text" required maxLength={100} value={form.artistName}
                 onChange={(e) => setForm({ ...form, artistName: e.target.value })}
                 placeholder="Your name or alias"
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+                className={`mt-1 ${inputBase}`} />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">Medium *</label>
               <select value={form.medium} onChange={(e) => setForm({ ...form, medium: e.target.value })}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none">
+                className={`mt-1 ${inputBase}`}>
                 {mediums.filter((t) => t !== 'all').map((t) => (
                   <option key={t} value={t}>{mediumLabels[t] || t}</option>
                 ))}
@@ -151,7 +152,7 @@ export default function GalleryPage() {
               <input type="url" required value={form.imageUrl}
                 onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
                 placeholder="https://example.com/my-art.jpg"
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+                className={`mt-1 ${inputBase}`} />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">Price</label>
@@ -159,7 +160,7 @@ export default function GalleryPage() {
                 <input type="text" value={form.price}
                   onChange={(e) => setForm({ ...form, price: e.target.value })}
                   placeholder="e.g. $200 or Not for sale"
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+                  className={`w-full ${inputBase}`} />
                 <button type="button" onClick={suggestPrice}
                   disabled={aiPricing || !form.title || !form.description || form.description.length < 10}
                   className="shrink-0 rounded-lg bg-accent px-3 py-2 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-40"
@@ -187,17 +188,17 @@ export default function GalleryPage() {
             <textarea required minLength={10} maxLength={2000} rows={3} value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               placeholder="Tell us about this piece — materials, dimensions, inspiration..."
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+              className={`mt-1 ${inputBase}`} />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">Story Behind the Art <span className="text-gray-400">(optional)</span></label>
             <textarea maxLength={3000} rows={4} value={form.story}
               onChange={(e) => setForm({ ...form, story: e.target.value })}
               placeholder="Share the story behind this piece — what inspired you, the process, what it means to you..."
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+              className={`mt-1 ${inputBase}`} />
           </div>
           <button type="submit" disabled={submitting}
-            className="rounded-lg bg-primary px-6 py-2.5 font-semibold text-white transition hover:bg-primary-dark disabled:opacity-50">
+            className="rounded-xl bg-primary px-6 py-2.5 font-semibold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50">
             {submitting ? 'Posting...' : 'Post to Gallery'}
           </button>
         </form>
@@ -206,12 +207,12 @@ export default function GalleryPage() {
       {/* Search & Filters */}
       <input type="text" placeholder="Search artwork..."
         value={search} onChange={(e) => setSearch(e.target.value)}
-        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+        className={inputBase} />
 
       <div className="flex flex-wrap gap-2">
         {mediums.map((t) => (
           <button key={t} onClick={() => setFilter(t)}
-            className={`rounded-full px-3 py-1 text-sm font-medium transition ${filter === t ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+            className={`rounded-full px-3 py-1 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${filter === t ? 'bg-primary text-white' : 'bg-surface text-slate-600 hover:bg-border/50'}`}>
             {t === 'all' ? 'All' : (mediumLabels[t] || t)}
           </button>
         ))}
@@ -219,16 +220,16 @@ export default function GalleryPage() {
 
       {/* Gallery Grid */}
       {loading ? (
-        <p className="text-gray-500">Loading gallery...</p>
+        <p className="text-slate-500">Loading gallery...</p>
       ) : posts.length === 0 ? (
-        <div className="rounded-xl border border-gray-200 p-12 text-center">
+        <div className="glass-card rounded-2xl p-12 text-center">
           <div className="text-5xl">🎨</div>
-          <p className="mt-3 text-gray-500">No artwork posted yet. Be the first to share!</p>
+          <p className="mt-3 text-slate-500">No artwork posted yet. Be the first to share!</p>
         </div>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, i) => (
-            <div key={post._id} className="group overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:shadow-lg">
+            <div key={post._id} className="glass-card group overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
               {/* Image */}
               {post.imageUrl ? (
                 <div className="aspect-[4/3] overflow-hidden bg-gray-100">
@@ -253,12 +254,12 @@ export default function GalleryPage() {
                     {mediumLabels[post.medium] || post.medium}
                   </span>
                   {post.price && post.price !== 'Not for sale' && (
-                    <span className="rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
+                    <span className="rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-success">
                       {post.price}
                     </span>
                   )}
                   {post.negotiable && (
-                    <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-600">
+                    <span className="rounded-full bg-info-bg px-2 py-0.5 text-xs font-medium text-info">
                       Open to offers
                     </span>
                   )}
@@ -279,7 +280,7 @@ export default function GalleryPage() {
                       {expanded === post._id ? 'Hide story' : 'Read the story behind this piece →'}
                     </button>
                     {expanded === post._id && (
-                      <div className="mt-2 rounded-lg bg-gray-50 p-3">
+                      <div className="mt-2 rounded-xl bg-surface p-3">
                         <p className="whitespace-pre-line text-sm text-gray-700">{post.story}</p>
                       </div>
                     )}

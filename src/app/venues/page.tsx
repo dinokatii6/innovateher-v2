@@ -38,10 +38,13 @@ function StarRating({ value }: { value: number }) {
   return (
     <span className="font-semibold text-primary">
       {value > 0 ? value.toFixed(1) : '—'}
-      <span className="text-xs text-gray-400">/5</span>
+      <span className="text-xs text-slate-400">/5</span>
     </span>
   )
 }
+
+const inputBase =
+  'w-full rounded-xl border border-border bg-white/80 px-4 py-2.5 text-slate-700 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition'
 
 export default function ArtMapPage() {
   const [venues, setVenues] = useState<Venue[]>([])
@@ -63,8 +66,10 @@ export default function ArtMapPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Art Map</h1>
-        <p className="text-gray-600">Discover and rate art spaces — galleries, studios, graffiti spots, and more.</p>
+        <h1 className="text-3xl font-bold text-gray-900">Art Map</h1>
+        <p className="mt-1 text-slate-600">
+          Discover and rate art spaces — galleries, studios, graffiti spots, and more.
+        </p>
       </div>
 
       <input
@@ -72,14 +77,14 @@ export default function ArtMapPage() {
         placeholder="Search art spaces by name or city..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+        className={inputBase}
       />
 
       {loading ? (
-        <p className="text-gray-500">Loading art spaces...</p>
+        <p className="text-slate-500">Loading art spaces...</p>
       ) : venues.length === 0 ? (
-        <div className="rounded-lg border border-gray-200 p-8 text-center">
-          <p className="text-gray-500">No art spaces found. Try a different search.</p>
+        <div className="glass-card rounded-2xl p-8 text-center">
+          <p className="text-slate-500">No art spaces found. Try a different search.</p>
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -87,7 +92,7 @@ export default function ArtMapPage() {
             <Link
               key={v._id}
               href={`/venues/${v._id}`}
-              className="block rounded-xl border border-gray-200 p-5 transition hover:border-primary hover:shadow-md"
+              className="glass-card block rounded-2xl p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:border-primary/50"
             >
               <div className="flex items-start justify-between">
                 <div>
@@ -95,29 +100,33 @@ export default function ArtMapPage() {
                     <span className="mr-2">{categoryIcons[v.category] || '📍'}</span>
                     {v.name}
                   </h2>
-                  <p className="text-sm text-gray-500">{v.city} · {categoryLabels[v.category] || v.category}</p>
+                  <p className="text-sm text-slate-500">
+                    {v.city} · {categoryLabels[v.category] || v.category}
+                  </p>
                 </div>
                 {v.totalIncidents > 0 && (
-                  <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-danger">
+                  <span className="rounded-full bg-danger-bg px-2 py-0.5 text-xs font-medium text-danger">
                     {v.totalIncidents} incident{v.totalIncidents > 1 ? 's' : ''}
                   </span>
                 )}
               </div>
               <div className="mt-4 grid grid-cols-3 gap-2 text-center text-sm">
                 <div>
-                  <div className="text-gray-500">Safety</div>
+                  <div className="text-slate-500">Safety</div>
                   <StarRating value={v.avgSafety} />
                 </div>
                 <div>
-                  <div className="text-gray-500">Fair Pay</div>
+                  <div className="text-slate-500">Fair Pay</div>
                   <StarRating value={v.avgFairPay} />
                 </div>
                 <div>
-                  <div className="text-gray-500">Respect</div>
+                  <div className="text-slate-500">Respect</div>
                   <StarRating value={v.avgRespect} />
                 </div>
               </div>
-              <p className="mt-2 text-center text-xs text-gray-400">{v.totalRatings} rating{v.totalRatings !== 1 ? 's' : ''}</p>
+              <p className="mt-2 text-center text-xs text-slate-400">
+                {v.totalRatings} rating{v.totalRatings !== 1 ? 's' : ''}
+              </p>
             </Link>
           ))}
         </div>

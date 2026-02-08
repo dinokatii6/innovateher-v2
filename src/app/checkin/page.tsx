@@ -22,6 +22,9 @@ function formatTime(ms: number) {
   return [h, m, sec].map((v) => String(v).padStart(2, '0')).join(':')
 }
 
+const inputBase =
+  'w-full rounded-xl border border-border bg-white/80 px-3 py-2 text-slate-700 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition'
+
 export default function CheckInPage() {
   const [session, setSession] = useState<Session | null>(null)
   const [venueName, setVenueName] = useState('')
@@ -102,30 +105,42 @@ export default function CheckInPage() {
     return (
       <div className="mx-auto max-w-md space-y-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold">Safety Check-In</h1>
-          <p className="mt-2 text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900">Safety Check-In</h1>
+          <p className="mt-2 text-slate-600">
             Start a timed session before visiting an art space. If you don&apos;t check out, an alert gets logged.
           </p>
         </div>
 
         {session?.status === 'checked_out' && (
-          <div className="rounded-lg bg-green-50 p-4 text-center">
+          <div className="glass-card rounded-2xl p-4 text-center border-success/40 bg-success-bg">
             <p className="font-medium text-success">You checked out safely from {session.venueName}!</p>
-            <button onClick={reset} className="mt-2 text-sm text-primary hover:underline">Start new session</button>
+            <button
+              onClick={reset}
+              className="mt-2 text-sm font-medium text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+            >
+              Start new session
+            </button>
           </div>
         )}
 
-        <div className="space-y-4 rounded-xl border border-gray-200 p-6">
+        <div className="glass-card space-y-4 rounded-2xl p-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Venue / Location</label>
-            <input type="text" value={venueName} onChange={(e) => setVenueName(e.target.value)}
+            <label className="block text-sm font-medium text-slate-700">Venue / Location</label>
+            <input
+              type="text"
+              value={venueName}
+              onChange={(e) => setVenueName(e.target.value)}
               placeholder="e.g. Downtown Pottery Studio"
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+              className={`mt-1 ${inputBase}`}
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Expected Duration</label>
-            <select value={duration} onChange={(e) => setDuration(Number(e.target.value))}
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none">
+            <label className="block text-sm font-medium text-slate-700">Expected Duration</label>
+            <select
+              value={duration}
+              onChange={(e) => setDuration(Number(e.target.value))}
+              className={`mt-1 ${inputBase}`}
+            >
               <option value={30}>30 minutes</option>
               <option value={60}>1 hour</option>
               <option value={120}>2 hours</option>
@@ -135,8 +150,11 @@ export default function CheckInPage() {
               <option value={480}>8 hours</option>
             </select>
           </div>
-          <button onClick={startSession} disabled={starting || !venueName.trim()}
-            className="w-full rounded-lg bg-danger py-3 font-semibold text-white transition hover:opacity-90 disabled:opacity-50">
+          <button
+            onClick={startSession}
+            disabled={starting || !venueName.trim()}
+            className="w-full rounded-xl bg-danger py-3 font-semibold text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-danger focus:ring-offset-2 disabled:opacity-50"
+          >
             {starting ? 'Starting...' : 'Start Check-In'}
           </button>
         </div>
@@ -148,34 +166,46 @@ export default function CheckInPage() {
   return (
     <div className="mx-auto max-w-md space-y-6">
       <div className="text-center">
-        <h1 className="text-3xl font-bold">Safety Check-In</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Safety Check-In</h1>
       </div>
 
-      <div className={`rounded-xl border-2 p-8 text-center ${isOverdue ? 'border-danger bg-red-50' : 'border-primary bg-surface'}`}>
+      <div
+        className={`glass-card rounded-2xl border-2 p-8 text-center ${
+          isOverdue ? 'border-danger bg-danger-bg' : 'border-primary/50 bg-surface'
+        }`}
+      >
         {isOverdue && (
-          <div className="mb-4 rounded-lg bg-danger px-4 py-2 text-sm font-bold text-white">
+          <div className="mb-4 rounded-xl bg-danger px-4 py-2 text-sm font-bold text-white">
             OVERDUE — Alert has been logged!
           </div>
         )}
-        <p className="text-sm text-gray-500">Checked in at</p>
-        <p className="text-lg font-bold">{session.venueName}</p>
-        <div className={`my-6 font-mono text-5xl font-bold ${isOverdue ? 'text-danger' : 'text-primary'}`}>
+        <p className="text-sm text-slate-500">Checked in at</p>
+        <p className="text-lg font-bold text-gray-900">{session.venueName}</p>
+        <div
+          className={`my-6 font-mono text-5xl font-bold ${
+            isOverdue ? 'text-danger' : 'text-primary'
+          }`}
+        >
           {isOverdue ? 'OVERDUE' : formatTime(remaining)}
         </div>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-slate-500">
           Started: {new Date(session.startTime).toLocaleTimeString()}
           {' · '}
           Expected: {new Date(session.expectedEnd).toLocaleTimeString()}
         </p>
       </div>
 
-      <button onClick={checkOut}
-        className="w-full rounded-lg bg-success py-3 font-semibold text-white transition hover:opacity-90">
+      <button
+        onClick={checkOut}
+        className="w-full rounded-xl bg-success py-3 font-semibold text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2"
+      >
         Check Out Safely
       </button>
 
-      <button onClick={reset}
-        className="w-full rounded-lg border border-gray-300 py-3 font-semibold text-gray-600 transition hover:bg-gray-50">
+      <button
+        onClick={reset}
+        className="w-full rounded-xl border border-border bg-white/80 py-3 font-semibold text-slate-600 transition hover:bg-surface focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+      >
         Cancel Session
       </button>
     </div>

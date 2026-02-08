@@ -7,6 +7,13 @@ interface VenueOption {
   city: string
 }
 
+const inputBase =
+  'w-full rounded-xl border border-border bg-white/80 px-3 py-2 text-slate-700 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition'
+const btnPrimary =
+  'rounded-xl bg-primary px-6 py-2 font-semibold text-white shadow-sm transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
+const btnDanger =
+  'w-full rounded-xl bg-danger py-3 font-semibold text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-danger focus:ring-offset-2 disabled:opacity-50'
+
 export default function ReportPage() {
   const [venues, setVenues] = useState<VenueOption[]>([])
   const [form, setForm] = useState({
@@ -49,14 +56,16 @@ export default function ReportPage() {
   if (submitted) {
     return (
       <div className="mx-auto max-w-md space-y-6 text-center">
-        <div className="rounded-xl border-2 border-success bg-green-50 p-8">
+        <div className="glass-card rounded-2xl border-2 border-success/50 bg-success-bg p-8">
           <div className="text-4xl">✓</div>
           <h2 className="mt-4 text-2xl font-bold text-gray-900">Report Submitted</h2>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-slate-600">
             Your anonymous report has been recorded. Thank you for helping keep the community safe.
           </p>
-          <button onClick={() => setSubmitted(false)}
-            className="mt-4 rounded-lg bg-primary px-6 py-2 font-semibold text-white transition hover:bg-primary-dark">
+          <button
+            onClick={() => setSubmitted(false)}
+            className={`mt-4 ${btnPrimary}`}
+          >
             Submit Another Report
           </button>
         </div>
@@ -67,18 +76,21 @@ export default function ReportPage() {
   return (
     <div className="mx-auto max-w-lg space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Report an Incident</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900">Report an Incident</h1>
+        <p className="mt-2 text-slate-600">
           Your report is completely anonymous. Help other artists stay safe at art spaces.
         </p>
       </div>
 
-      <form onSubmit={submit} className="space-y-4 rounded-xl border border-gray-200 p-6">
+      <form onSubmit={submit} className="glass-card space-y-4 rounded-2xl p-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Venue</label>
-          <select value={form.venueId} onChange={(e) => setForm({ ...form, venueId: e.target.value })}
+          <label className="block text-sm font-medium text-slate-700">Venue</label>
+          <select
+            value={form.venueId}
+            onChange={(e) => setForm({ ...form, venueId: e.target.value })}
             required
-            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none">
+            className={`mt-1 ${inputBase}`}
+          >
             <option value="">Select a venue...</option>
             {venues.map((v) => (
               <option key={v._id} value={v._id}>{v.name} — {v.city}</option>
@@ -87,9 +99,12 @@ export default function ReportPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Incident Type</label>
-          <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}
-            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none">
+          <label className="block text-sm font-medium text-slate-700">Incident Type</label>
+          <select
+            value={form.type}
+            onChange={(e) => setForm({ ...form, type: e.target.value })}
+            className={`mt-1 ${inputBase}`}
+          >
             <option value="harassment">Harassment</option>
             <option value="unsafe_conditions">Unsafe Conditions</option>
             <option value="nonpayment">Non-Payment</option>
@@ -99,9 +114,12 @@ export default function ReportPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Severity</label>
-          <select value={form.severity} onChange={(e) => setForm({ ...form, severity: e.target.value })}
-            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none">
+          <label className="block text-sm font-medium text-slate-700">Severity</label>
+          <select
+            value={form.severity}
+            onChange={(e) => setForm({ ...form, severity: e.target.value })}
+            className={`mt-1 ${inputBase}`}
+          >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
@@ -110,22 +128,30 @@ export default function ReportPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Date of Incident</label>
-          <input type="date" value={form.dateOfIncident}
+          <label className="block text-sm font-medium text-slate-700">Date of Incident</label>
+          <input
+            type="date"
+            value={form.dateOfIncident}
             onChange={(e) => setForm({ ...form, dateOfIncident: e.target.value })}
-            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none" />
+            className={`mt-1 ${inputBase}`}
+          />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Description</label>
-          <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })}
-            maxLength={2000} rows={5} required minLength={10}
+          <label className="block text-sm font-medium text-slate-700">Description</label>
+          <textarea
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+            maxLength={2000}
+            rows={5}
+            required
+            minLength={10}
             placeholder="Describe what happened. Be as specific as you feel comfortable with."
-            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+            className={`mt-1 ${inputBase}`}
+          />
         </div>
 
-        <button type="submit" disabled={submitting || !form.venueId}
-          className="w-full rounded-lg bg-danger py-3 font-semibold text-white transition hover:opacity-90 disabled:opacity-50">
+        <button type="submit" disabled={submitting || !form.venueId} className={btnDanger}>
           {submitting ? 'Submitting...' : 'Submit Anonymous Report'}
         </button>
       </form>
