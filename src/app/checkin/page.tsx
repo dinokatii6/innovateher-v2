@@ -104,7 +104,7 @@ export default function CheckInPage() {
         <div className="text-center">
           <h1 className="text-3xl font-bold">Safety Check-In</h1>
           <p className="mt-2 text-gray-600">
-            Start a timed session before your gig. If you don&apos;t check out, an alert gets logged.
+            Start a timed session before visiting an art space. If you don&apos;t check out, an alert gets logged.
           </p>
         </div>
 
@@ -119,7 +119,7 @@ export default function CheckInPage() {
           <div>
             <label className="block text-sm font-medium text-gray-700">Venue / Location</label>
             <input type="text" value={venueName} onChange={(e) => setVenueName(e.target.value)}
-              placeholder="Where are you heading?"
+              placeholder="e.g. Downtown Pottery Studio"
               className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
           </div>
           <div>

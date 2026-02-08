@@ -14,6 +14,26 @@ interface Venue {
   totalIncidents: number
 }
 
+const categoryLabels: Record<string, string> = {
+  gallery: 'Gallery',
+  studio: 'Studio',
+  pottery_studio: 'Pottery Studio',
+  graffiti_spot: 'Graffiti Spot',
+  makerspace: 'Makerspace',
+  outdoor: 'Outdoor',
+  other: 'Other',
+}
+
+const categoryIcons: Record<string, string> = {
+  gallery: '🏛️',
+  studio: '🎨',
+  pottery_studio: '🏺',
+  graffiti_spot: '🖌️',
+  makerspace: '🔧',
+  outdoor: '🌳',
+  other: '📍',
+}
+
 function StarRating({ value }: { value: number }) {
   return (
     <span className="font-semibold text-primary">
@@ -23,7 +43,7 @@ function StarRating({ value }: { value: number }) {
   )
 }
 
-export default function VenuesPage() {
+export default function ArtMapPage() {
   const [venues, setVenues] = useState<Venue[]>([])
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(true)
@@ -42,23 +62,24 @@ export default function VenuesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Venues</h1>
+      <div>
+        <h1 className="text-3xl font-bold">Art Map</h1>
+        <p className="text-gray-600">Discover and rate art spaces — galleries, studios, graffiti spots, and more.</p>
       </div>
 
       <input
         type="text"
-        placeholder="Search venues by name or city..."
+        placeholder="Search art spaces by name or city..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
       />
 
       {loading ? (
-        <p className="text-gray-500">Loading venues...</p>
+        <p className="text-gray-500">Loading art spaces...</p>
       ) : venues.length === 0 ? (
         <div className="rounded-lg border border-gray-200 p-8 text-center">
-          <p className="text-gray-500">No venues found. Try a different search or seed the database.</p>
+          <p className="text-gray-500">No art spaces found. Try a different search.</p>
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -70,8 +91,11 @@ export default function VenuesPage() {
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h2 className="text-lg font-bold text-gray-900">{v.name}</h2>
-                  <p className="text-sm text-gray-500">{v.city} · {v.category}</p>
+                  <h2 className="text-lg font-bold text-gray-900">
+                    <span className="mr-2">{categoryIcons[v.category] || '📍'}</span>
+                    {v.name}
+                  </h2>
+                  <p className="text-sm text-gray-500">{v.city} · {categoryLabels[v.category] || v.category}</p>
                 </div>
                 {v.totalIncidents > 0 && (
                   <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-danger">

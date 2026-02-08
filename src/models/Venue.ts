@@ -4,7 +4,7 @@ export interface IVenue extends Document {
   name: string
   address: string
   city: string
-  category: 'bar' | 'club' | 'theater' | 'gallery' | 'studio' | 'outdoor' | 'other'
+  category: 'gallery' | 'studio' | 'pottery_studio' | 'graffiti_spot' | 'makerspace' | 'outdoor' | 'other'
   avgSafety: number
   avgFairPay: number
   avgRespect: number
@@ -20,7 +20,7 @@ const VenueSchema = new Schema<IVenue>(
     city: { type: String, required: true },
     category: {
       type: String,
-      enum: ['bar', 'club', 'theater', 'gallery', 'studio', 'outdoor', 'other'],
+      enum: ['gallery', 'studio', 'pottery_studio', 'graffiti_spot', 'makerspace', 'outdoor', 'other'],
       default: 'other',
     },
     avgSafety: { type: Number, default: 0 },

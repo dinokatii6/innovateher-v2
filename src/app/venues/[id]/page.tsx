@@ -90,7 +90,7 @@ export default function VenueDetailPage() {
 
   return (
     <div className="space-y-6">
-      <Link href="/venues" className="text-sm text-primary hover:underline">← Back to venues</Link>
+      <Link href="/venues" className="text-sm text-primary hover:underline">← Back to Art Map</Link>
 
       <div className="rounded-xl border border-gray-200 p-6">
         <div className="flex items-start justify-between">

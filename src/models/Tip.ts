@@ -2,7 +2,7 @@ import mongoose, { Schema, type Document } from 'mongoose'
 
 export interface ITip extends Document {
   body: string
-  category: 'safety' | 'pay' | 'opportunity' | 'general'
+  category: 'safety' | 'pricing' | 'technique' | 'supplies' | 'general'
   upvotes: number
   createdAt: Date
 }
@@ -12,7 +12,7 @@ const TipSchema = new Schema<ITip>(
     body: { type: String, required: true, maxlength: 280 },
     category: {
       type: String,
-      enum: ['safety', 'pay', 'opportunity', 'general'],
+      enum: ['safety', 'pricing', 'technique', 'supplies', 'general'],
       default: 'general',
     },
     upvotes: { type: Number, default: 0 },

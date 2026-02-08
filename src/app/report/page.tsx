@@ -69,7 +69,7 @@ export default function ReportPage() {
       <div>
         <h1 className="text-3xl font-bold">Report an Incident</h1>
         <p className="mt-2 text-gray-600">
-          Your report is completely anonymous. Help others stay safe by sharing what happened.
+          Your report is completely anonymous. Help other artists stay safe at art spaces.
         </p>
       </div>
 

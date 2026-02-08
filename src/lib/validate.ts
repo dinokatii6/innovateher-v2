@@ -18,17 +18,24 @@ export const incidentSchema = z.object({
 
 export const tipSchema = z.object({
   body: z.string().min(1).max(280),
-  category: z.enum(['safety', 'pay', 'opportunity', 'general']).optional().default('general'),
+  category: z.enum(['safety', 'pricing', 'technique', 'supplies', 'general']).optional().default('general'),
 })
 
 export const opportunitySchema = z.object({
   title: z.string().min(1).max(200),
+  artistName: z.string().min(1).max(100),
   description: z.string().min(10).max(2000),
-  type: z.enum(['gig', 'residency', 'grant', 'audition', 'collaboration', 'other']).optional().default('gig'),
-  location: z.string().min(1),
-  compensation: z.string().optional().default(''),
-  deadline: z.string().nullable().optional().default(null),
-  contactInfo: z.string().min(1).max(500),
+  story: z.string().max(3000).optional().default(''),
+  medium: z.enum(['digital', 'painting', 'pottery', 'sculpture', 'graffiti', 'photography', 'textile', 'mixed_media', 'other']).optional().default('other'),
+  imageUrl: z.string().optional().default(''),
+  price: z.string().optional().default('Not for sale'),
+  negotiable: z.boolean().optional().default(false),
+})
+
+export const storySchema = z.object({
+  title: z.string().min(1).max(200),
+  body: z.string().min(10).max(3000),
+  category: z.enum(['journey', 'inspiration', 'challenge', 'advice', 'general']).optional().default('general'),
 })
 
 export const checkinSchema = z.object({
